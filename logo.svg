@@ -1,0 +1,36 @@
+<svg width="1500" height="1500"
+  xmlns="http://www.w3.org/2000/svg">
+  <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+  <g>
+    <title>background</title>
+    <rect x="-1" y="-1" width="1502" height="1502" id="canvas_background" fill="none"/>
+    <g id="canvasGrid" display="none">
+      <rect id="svg_1" width="100%" height="100%" x="0" y="0" stroke-width="0" fill="url(#gridpattern)"/>
+    </g>
+  </g>
+  <g>
+    <title>Layer 1</title>
+    <g id="svg_10" stroke="null">
+      <g id="svg_6" fill="none" fill-rule="evenodd" transform="matrix(63.34477588708005,0,0,63.34477588708005,-119.97909631822819,-497.8397862490724) ">
+        <g id="svg_7" stroke="null">
+          <path d="m3.73403,11.69918c0,-1.10457 0.89821,-2 1.9908,-2l16.0184,0c1.09949,0 1.9908,0.88773 1.9908,2l0,2l-20,0l0,-2zm1,3l18,0l0,13.00812c0,1.10008 -0.89262,1.99188 -1.99509,1.99188l-14.00982,0c-1.10186,0 -1.99509,-0.8934 -1.99509,-1.99188l0,-13.00812zm6,2l6,0l0,2l-6,0l0,-2z" id="svg_8" fill="#234e52"/>
+        </g>
+      </g>
+    </g>
+    <g id="svg_20" stroke="null">
+      <g id="svg_16" fill="none" fill-rule="evenodd" transform="matrix(44.27659141295874,0,0,44.27659141295874,-198.3227224517089,1019.9171809232014) ">
+        <g id="svg_17" stroke="null">
+          <path d="m12.12526,0.71281l-0.70711,-0.70711l5.48528,-5.48528l1.41421,1.41421l-4.07106,4.07107l4.07106,4.07107l-1.41421,1.41421l-4.77817,-4.77817zm18.58578,0l0.70711,-0.70711l-5.48528,-5.48528l-1.41421,1.41421l4.07106,4.07107l-4.07106,4.07107l1.41421,1.41421l4.77817,-4.77817z" id="svg_18" fill="#81e6d9" stroke="null"/>
+        </g>
+      </g>
+    </g>
+    <g id="svg_30" stroke="null">
+      <g id="svg_36" fill="none" fill-rule="evenodd" transform="matrix(14.575360027438427,0,0,14.575360027438427,1174.5345838649068,1437.8796573892062) ">
+        <g id="svg_37" stroke="null">
+          <path d="m-38.60714,-30.68252l3,0l0,10l-3,0l0,-10zm5,-10l3,0l0,20l-3,0l0,-20zm5,8l3,0l0,12l-3,0l0,-12zm5,-4l3,0l0,16l-3,0l0,-16z" id="svg_38" fill="#e6fffa" stroke="null"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

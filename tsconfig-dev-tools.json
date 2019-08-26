@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "target": "es5"
+  },
+  "include": ["dev-tools/**/*"],
+  "exclude": ["node_modules"]
+}
