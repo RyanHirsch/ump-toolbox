@@ -21,7 +21,7 @@ const EventListener: React.FunctionComponent = () => {
 
   useEffect(() => {
     const backgroundPageConnection = chrome.runtime.connect({
-      name: "background"
+      name: "panel"
     });
 
     backgroundPageConnection.onMessage.addListener(function(

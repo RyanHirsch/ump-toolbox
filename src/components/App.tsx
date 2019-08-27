@@ -25,7 +25,15 @@ const App: React.FunctionComponent = () => {
         <EventListener />
         <Header>Total Track Events: {events.length}</Header>
         <div className="flex justify-between mt-6 mx-2">
-          <DomainLinks />
+          {events.length > 0 ? (
+            <DomainLinks />
+          ) : (
+            <div className="w-full text-center text-lg">
+              No Events have been captured. This tool will only capture traffic
+              bound for https://api.mixpanel.com/track when your dev tools are
+              open.
+            </div>
+          )}
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route path="/domains/:domain" component={DomainEvents} />
