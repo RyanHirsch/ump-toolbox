@@ -24,7 +24,7 @@ const DomainEvents: React.FunctionComponent<Matched> = ({ match }) => {
           Domain {domain}
         </span>
       </div>
-      <EventList events={filteredEvents} />
+      <EventList events={filteredEvents} domain={domain} />
     </div>
   );
 };

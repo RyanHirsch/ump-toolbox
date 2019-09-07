@@ -20,23 +20,27 @@ const EventListener: React.FunctionComponent = () => {
   const [, setEvents] = useContext(TrackEventsContext);
 
   useEffect(() => {
-    const backgroundPageConnection = chrome.runtime.connect({
-      name: "panel"
-    });
+    const extensionId: string = "lfknbnahagadakdbgmmpcjkaflppclcg";
+    const backgroundPageConnection =
+      process.env.NODE_ENV === "development"
+        ? chrome.runtime.connect(extensionId)
+        : chrome.runtime.connect({
+            name: "panel"
+          });
 
     backgroundPageConnection.onMessage.addListener(function(
       message: InitialEventsMessage | NewEventMessage
     ) {
       if (message.type === "initial-events" || message.type === "new-event") {
         setEvents(
-          produce((draft: ContextProps) => {
+          produce(({ domains, events }: ContextProps) => {
             const processEvent = (event: ScrapedTrackEvent) => {
-              if (draft.domains[event.domain]) {
-                draft.domains[event.domain]++;
+              if (domains[event.domain]) {
+                domains[event.domain]++;
               } else {
-                draft.domains[event.domain] = 1;
+                domains[event.domain] = 1;
               }
-              draft.events.push(parseEvent(event));
+              events.push(parseEvent(event));
             };
 
             if (message.type === "initial-events") {

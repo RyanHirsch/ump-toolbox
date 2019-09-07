@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
 
 import { ParsedTrackEvent } from "../../types/event";
@@ -6,16 +6,24 @@ import DisplayEvent from "./DisplayEvent";
 
 interface EventListProps {
   events: ParsedTrackEvent[];
+  domain: string;
 }
 
 const eventItemClasses = "text-sm my-1 mx-2 p-1 px-2";
 
-const EventList: React.FunctionComponent<EventListProps> = ({ events }) => {
+const EventList: React.FunctionComponent<EventListProps> = ({
+  events,
+  domain
+}) => {
   const [selectedEvent, setSelectedEvent] = useState<ParsedTrackEvent | null>(
     null
   );
-  const sorted = events.sort((a, b) => a.sentAt - b.sentAt);
-  const top = sorted.slice(-30).reverse();
+
+  useEffect(() => {
+    setSelectedEvent(null);
+  }, [domain]);
+
+  const top = events.slice(-30).reverse();
   return (
     <div className="flex">
       <ul className="w-5/12">
@@ -45,7 +53,7 @@ const EventList: React.FunctionComponent<EventListProps> = ({ events }) => {
           <div>Latest Event</div>
         )}
         <DisplayEvent
-          events={sorted.slice(-50)}
+          events={events.slice(-50)}
           event={selectedEvent || top[0]}
         />
       </div>

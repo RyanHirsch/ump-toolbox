@@ -1,4 +1,7 @@
 import React from "react";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import { isEmpty } from "ramda";
+
 import { getDetails, getValueAsString } from "../utils";
 import { ParsedTrackEvent } from "../../types/event";
 
@@ -40,30 +43,46 @@ interface DisplayEventProps {
   event: ParsedTrackEvent;
 }
 
-const propertySectionHeader = "text-lg mt-4 border-b-2 border-teal-200";
-const headerClasses = "text-center text-xl";
-
 const DisplayEvent: React.FunctionComponent<DisplayEventProps> = ({
   events,
   event
 }) => {
-  const { eventProps, superProps } = getDetails(events, event);
+  const { eventProps, superProps, mpProps } = getDetails(events, event);
+  const defaultIndex = [eventProps, superProps, mpProps].findIndex(
+    props => !isEmpty(props)
+  );
 
   return (
     <div>
-      <header className={headerClasses}>{event.event}</header>
-      <section>
-        <header className={propertySectionHeader}>
-          <span className="bg-teal-200 px-3 py-1">Properties</span>
-        </header>
-        <PropertyList item={eventProps} />
-      </section>
-      <section>
-        <header className={propertySectionHeader}>
-          <span className="bg-teal-200 px-3 py-1">Super Properties</span>
-        </header>
-        <PropertyList item={superProps} />
-      </section>
+      <header className="text-center text-xl mb-4">{event.event}</header>
+
+      <Tabs
+        selectedTabClassName="bg-teal-200"
+        disabledTabClassName="text-gray-500"
+        defaultIndex={defaultIndex}
+        key={event.sentAt}
+      >
+        <TabList className="px-2 text-lg border-b-2 border-teal-200 flex items-center">
+          <Tab className="px-3 py-1" disabled={isEmpty(eventProps)}>
+            Properties
+          </Tab>
+          <Tab className="px-3 py-1" disabled={isEmpty(superProps)}>
+            Super Properties
+          </Tab>
+          <Tab className="px-3 py-1" disabled={isEmpty(mpProps)}>
+            Mixpanel Properties
+          </Tab>
+        </TabList>
+        <TabPanel>
+          <PropertyList item={eventProps} />
+        </TabPanel>
+        <TabPanel>
+          <PropertyList item={superProps} />
+        </TabPanel>
+        <TabPanel>
+          <PropertyList item={mpProps} />
+        </TabPanel>
+      </Tabs>
     </div>
   );
 };

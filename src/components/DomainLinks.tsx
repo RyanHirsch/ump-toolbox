@@ -13,7 +13,7 @@ const DomainLinks: React.FunctionComponent = () => {
   const [{ domains, events }] = useContext(TrackEventsContext);
 
   return (
-    <div className="mx-auto w-3/12">
+    <div className="mx-auto  lg:w-3/12">
       <ul>
         <li>
           <NavLink

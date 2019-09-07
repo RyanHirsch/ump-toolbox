@@ -73,6 +73,10 @@ chrome.runtime.onConnect.addListener(connection => {
   }
 });
 
+chrome.runtime.onConnectExternal.addListener(connection => {
+  attachPanelListener(connection);
+});
+
 function initialize(tabId: number) {
   const requestFilter = { urls: ["<all_urls>"], tabId };
 

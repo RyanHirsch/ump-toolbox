@@ -11,7 +11,15 @@ export interface ParsedTrackEvent extends MixpanelEvent {
 
 export interface MixpanelEvent {
   event: string;
-  properties: {
-    [key: string]: any;
-  };
+  properties: KeyedValues;
+}
+
+export interface KeyedValues {
+  [key: string]: any;
+}
+
+export interface EventBreakdown {
+  eventProps: KeyedValues;
+  superProps: KeyedValues;
+  mpProps: KeyedValues;
 }
