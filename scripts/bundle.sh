@@ -17,3 +17,6 @@ cd build
 VERSION=$(jq -r ".version" ./manifest.json)
 
 zip -r -X "../ump-toolbox-v${VERSION}.zip" .
+
+cd "${PROJECT_DIR}"
+npx crx pack build -o "ump-toolbox-v${VERSION}.crx"
