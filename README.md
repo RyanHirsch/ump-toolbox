@@ -12,5 +12,6 @@ Planned Features
 - [ ] Allow for sending arbitrary events to MP
 - [ ] Create rules for events to flag unexpected properties and values
 - [ ] Revisit super property detection to ensure its correct
+- [ ] Drill down into a property to see other values sent
 - [ ] Explore Live View integration
 - [ ] Explore Lexicon tooling
