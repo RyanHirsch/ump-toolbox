@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { isEmpty } from "ramda";
 
@@ -47,6 +48,9 @@ const DisplayEvent: React.FunctionComponent<DisplayEventProps> = ({
   events,
   event
 }) => {
+  if (!event) {
+    return <Redirect to="/" />;
+  }
   const { eventProps, superProps, mpProps } = getDetails(events, event);
   const defaultIndex = [eventProps, superProps, mpProps].findIndex(
     props => !isEmpty(props)
