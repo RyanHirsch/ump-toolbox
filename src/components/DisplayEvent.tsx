@@ -78,12 +78,25 @@ const DisplayEvent: React.FunctionComponent<DisplayEventProps> = ({
           </Tab>
         </TabList>
         <TabPanel>
+          {/* <TrackEvent
+            name="Tab Select"
+            props={{ "Tab Name": "Event Properties" }}
+          /> */}
           <PropertyList item={eventProps} />
         </TabPanel>
         <TabPanel>
+          {/* <TrackEvent
+            name="Tab Select"
+            props={{ "Tab Name": "Super Properties" }}
+          /> */}
           <PropertyList item={superProps} />
         </TabPanel>
         <TabPanel>
+          {/* <TrackEvent
+            name="Tab Select"
+            props={{ "Tab Name": "Mixpanel Properties" }}
+          /> */}
+
           <PropertyList item={mpProps} />
         </TabPanel>
       </Tabs>

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Switch, Route } from "react-router";
+import { PageView } from "mixpanel-react";
 
 import { TrackEventsContext } from "../contexts/TrackEvents";
 import EventListener from "./EventsListener";
@@ -21,6 +22,7 @@ const App: React.FunctionComponent = () => {
 
   return (
     <>
+      <PageView name="MP-Toolbox" />
       <div className="w-full">
         <EventListener />
         <Header>Total Track Events: {events.length}</Header>

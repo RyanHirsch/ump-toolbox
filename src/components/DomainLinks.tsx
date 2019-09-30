@@ -1,12 +1,12 @@
+import produce from "immer";
 import React, { useContext } from "react";
+import { NavLink, Route, Switch } from "react-router-dom";
 
 import {
   TrackEventsContext,
   defaultState,
   ContextProps
 } from "../contexts/TrackEvents";
-import { NavLink, Route, Switch } from "react-router-dom";
-import produce from "immer";
 
 const linkClasses =
   "m-3 py-2 px-4 bg-teal-300 rounded flex justify-between hover:bg-teal-200 shadow-md";

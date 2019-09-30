@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-
-import { TrackEventsContext } from "../contexts/TrackEvents";
 import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
+import { TrackEvent } from "mixpanel-react";
+
+import { TrackEventsContext } from "../contexts/TrackEvents";
 import EventList from "./EventList";
 
 type Matched = RouteComponentProps<{ domain: string }>;
@@ -20,9 +21,13 @@ const DomainEvents: React.FunctionComponent<Matched> = ({ match }) => {
         <Link className="p-2 rounded bg-teal-200 gray-100" to="/">
           &lt; Back
         </Link>
-        <span className="ml-8 mb-3 inline-block font-medium">
+        <div className="ml-8 mb-3 inline-block font-medium">
           Domain {domain}
-        </span>
+          <TrackEvent
+            name="Display Domain Events"
+            props={{ "Domain Name": domain }}
+          />
+        </div>
       </div>
       <EventList events={filteredEvents} domain={domain} />
     </div>

@@ -9,6 +9,8 @@
     "@types/react-dom": "16.9.0",
     "date-fns": "^2.0.1",
     "immer": "^3.2.0",
+    "mixpanel-browser": "^2.29.1",
+    "mixpanel-react": "^0.2.1",
     "ramda": "^0.26.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -48,6 +50,7 @@
   "devDependencies": {
     "@types/chrome": "^0.0.88",
     "@types/date-fns": "^2.6.0",
+    "@types/mixpanel-browser": "^2.23.1",
     "@types/ramda": "^0.26.21",
     "@types/react-router": "^5.0.3",
     "@types/react-router-dom": "^4.3.5",

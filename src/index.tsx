@@ -1,13 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import { MemoryRouter } from "react-router";
 import { HashRouter as Router } from "react-router-dom";
+import mixpanel from "mixpanel-browser";
 import "typeface-roboto";
 
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 import { TrackEventsProvider } from "./contexts/TrackEvents";
 import "./index.css";
+
+mixpanel.init("7dae801a78d8a4d65d2e5e832f50d934");
+try {
+  mixpanel.register({
+    "App Version": chrome.runtime.getManifest().version,
+    Environment: process.env.NODE_ENV
+  });
+} catch {
+  mixpanel.register({
+    "App Version": "unknown",
+    Environment: process.env.NODE_ENV
+  });
+}
 
 ReactDOM.render(
   <TrackEventsProvider>

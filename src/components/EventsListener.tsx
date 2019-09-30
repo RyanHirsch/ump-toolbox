@@ -1,11 +1,11 @@
 import produce from "immer";
 import React, { useContext, useEffect } from "react";
+import mixpanel from "mixpanel-browser";
 
 import { ScrapedTrackEvent, ParsedTrackEvent } from "../../types/event";
+import { UserInfoMessage } from "../../types/user";
 import { InitialEventsMessage, NewEventMessage } from "../../types/message";
 import { TrackEventsContext, ContextProps } from "../contexts/TrackEvents";
-
-// real-time rules?
 
 function parseEvent(e: ScrapedTrackEvent): ParsedTrackEvent {
   const eventData = JSON.parse(atob(e.data));
@@ -29,7 +29,7 @@ const EventListener: React.FunctionComponent = () => {
           });
 
     backgroundPageConnection.onMessage.addListener(function(
-      message: InitialEventsMessage | NewEventMessage
+      message: InitialEventsMessage | NewEventMessage | UserInfoMessage
     ) {
       if (message.type === "initial-events" || message.type === "new-event") {
         setEvents(
@@ -50,6 +50,14 @@ const EventListener: React.FunctionComponent = () => {
             }
           })
         );
+      } else if (message.type === "user-info") {
+        if (message.data.email) {
+          mixpanel.identify(message.data.email);
+        }
+        mixpanel.register({
+          "User Name": message.data.username,
+          "User Email": message.data.email
+        });
       }
     });
   }, [setEvents]);
