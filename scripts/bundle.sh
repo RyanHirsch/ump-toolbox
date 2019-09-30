@@ -22,6 +22,7 @@ if [[ -z $UNSTAGED ]] && [[ -z $UNCOMMITTED ]]; then
   VERSION=$(jq -r ".version" ./manifest.json)
 
   git tag "v${VERSION}"
+  git push --tags
 
   zip -r -X "../ump-toolbox-v${VERSION}.zip" .
 
