@@ -11,12 +11,23 @@ if [[ -f "${PROJECT_DIR}/.env" ]]; then
 fi
 
 cd "${PROJECT_DIR}"
-yarn build
-cd build
 
-VERSION=$(jq -r ".version" ./manifest.json)
+UNSTAGED=$(git diff --name-only)
+UNCOMMITTED=$(git diff --cached --name-only)
 
-zip -r -X "../ump-toolbox-v${VERSION}.zip" .
+if [[ -z $UNSTAGED ]] && [[ -z $UNCOMMITTED ]]; then
+  yarn build
+  cd build
 
-cd "${PROJECT_DIR}"
-npx crx pack build -o "ump-toolbox-v${VERSION}.crx"
+  VERSION=$(jq -r ".version" ./manifest.json)
+
+  git tag "v${VERSION}"
+
+  zip -r -X "../ump-toolbox-v${VERSION}.zip" .
+
+  cd "${PROJECT_DIR}"
+  npx crx pack build -o "ump-toolbox-v${VERSION}.crx"
+else
+  echo "You are not in a clean git state"
+  exit 1
+fi
