@@ -32,8 +32,8 @@ const App: React.FunctionComponent = () => {
           ) : (
             <div className="w-full text-center text-lg">
               No Events have been captured. This tool will only capture traffic
-              bound for https://api.mixpanel.com/track when your dev tools are
-              open.
+              bound for https://api.mixpanel.com/track or
+              https://api-js.mixpanel.com/track when your dev tools are open.
             </div>
           )}
           <Switch>

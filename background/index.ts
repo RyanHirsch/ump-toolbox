@@ -4,17 +4,34 @@ const trackEvents: ScrapedTrackEvent[] = [];
 const panelConnections = new Set<chrome.runtime.Port>();
 const devToolsConnectionManager = new Map<chrome.runtime.Port, any>();
 
-function getBase64Data(url: string): string {
+function getBase64Data(
+  url: string,
+  requestBody?: chrome.webRequest.WebRequestBody
+): string {
+  if (requestBody?.raw?.length) {
+    const extractedData = String.fromCharCode
+      .apply(null, new Uint8Array(requestBody.raw[0].bytes))
+      .split("&")
+      .find((x: string) => x.startsWith("data="))
+      .substring(5);
+    if (extractedData) {
+      console.log(extractedData);
+      return extractedData;
+    }
+  }
   const [, qs] = url.split("?data=");
   const [data] = qs.split("&");
   return decodeURIComponent(data);
 }
 
-function broadcastEvent(event: ScrapedTrackEvent) {
-  return (connection: chrome.runtime.Port) => {
-    connection.postMessage({ type: "new-event", event });
+function broadcast(type: string) {
+  return (event: ScrapedTrackEvent) => (connection: chrome.runtime.Port) => {
+    connection.postMessage({ type, event });
   };
 }
+
+const broadcastEvent = broadcast("new-event");
+const broadcastLog = broadcast("log");
 
 function sendExistingEvents(connection: chrome.runtime.Port) {
   connection.postMessage({
@@ -103,20 +120,34 @@ async function getUserData() {
 
 function initialize(tabId: number) {
   const requestFilter = { urls: ["<all_urls>"], tabId };
+  console.log(`Background initialized`);
 
   const listener = ({
     url,
-    initiator
+    initiator,
+    requestBody
   }: chrome.webRequest.WebRequestBodyDetails) => {
-    if (url.startsWith("https://api.mixpanel.com/track")) {
-      const data = getBase64Data(url);
-      const event: ScrapedTrackEvent = {
-        data,
-        domain: initiator,
-        sentAt: Date.now()
-      };
-      trackEvents.push(event);
-      panelConnections.forEach(broadcastEvent(event));
+    if (initiator.startsWith("chrome-extension")) {
+      return;
+    }
+    if (
+      url.startsWith("https://api.mixpanel.com/track") ||
+      url.startsWith("https://api-js.mixpanel.com/track")
+    ) {
+      console.log(url, requestBody);
+      try {
+        const data = getBase64Data(url, requestBody);
+        const event: ScrapedTrackEvent = {
+          data,
+          domain: initiator,
+          sentAt: Date.now()
+        };
+        trackEvents.push(event);
+        panelConnections.forEach(broadcastEvent(event));
+        console.log(`Track Event Occurred`, data);
+      } catch (err) {
+        console.warn(`Failed to extract track data from ${url}`);
+      }
     }
   };
 

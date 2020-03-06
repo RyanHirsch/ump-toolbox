@@ -5,7 +5,7 @@ const backgroundPageConnection = chrome.runtime.connect({
 const backgroundMessageReceived = (_message: any) => {};
 
 backgroundPageConnection.onMessage.addListener(backgroundMessageReceived);
-console.log({});
+
 chrome.devtools.panels.create(
   "Unofficial Mixpanel Toolbox",
   "icon128.png",
